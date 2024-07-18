@@ -113,7 +113,7 @@ def main(info, new_user_info, model):
     list: A list containing user information and recommended places.
     """
     result = []
-    places_list_str = new_user_info["sido_gungu_list"][4]
+    places_list_str = new_user_info["sido_gungu_list"].values[0]
     places_list = preprocess_places_list(places_list_str)
     final_df = generate_final_df(info, new_user_info, places_list)
     
