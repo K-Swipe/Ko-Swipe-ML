@@ -22,6 +22,7 @@ user_columns = [
 features = final_columns
 
 def convert_float_to_int(df):
+    """type conversion from float to int"""
     float_cols = df.select_dtypes(include=['float']).columns
     
     for col in float_cols:
