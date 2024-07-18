@@ -164,3 +164,7 @@ cython_debug/
 
 # Data
 data/
+
+# Logs
+catboost_info/
+archive/
