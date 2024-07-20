@@ -4,22 +4,8 @@ import os
 import joblib
 import pandas as pd
 
-# Define column lists
-final_columns = [
-    "VISIT_AREA_NM", "SIDO", "GUNGU", "VISIT_AREA_TYPE_CD", "TRAVEL_MISSION_PRIORITY", "GENDER", "AGE_GRP", "INCOME",
-    "TRAVEL_STYL_1", "TRAVEL_STYL_2", "TRAVEL_STYL_3", "TRAVEL_STYL_4", "TRAVEL_STYL_5", "TRAVEL_STYL_6", 
-    "TRAVEL_STYL_7", "TRAVEL_STYL_8", "TRAVEL_MOTIVE_1", "TRAVEL_NUM", "TRAVEL_COMPANIONS_NUM", 
-    "RESIDENCE_TIME_MIN_mean", "RCMDTN_INTENTION_mean", "REVISIT_YN_mean", "TRAVEL_COMPANIONS_NUM_mean", 
-    "REVISIT_INTENTION_mean"
-]
+from Recommended.config import cfg
 
-user_columns = [
-    "SIDO", "TRAVEL_MISSION_PRIORITY", "GENDER", "AGE_GRP", "INCOME", "TRAVEL_STYL_1", "TRAVEL_STYL_2",
-    "TRAVEL_STYL_3", "TRAVEL_STYL_4", "TRAVEL_STYL_5", "TRAVEL_STYL_6", "TRAVEL_STYL_7", "TRAVEL_STYL_8",
-    "TRAVEL_MOTIVE_1", "TRAVEL_NUM", "TRAVEL_COMPANIONS_NUM"
-]
-
-features = final_columns
 
 def convert_float_to_int(df):
     """type conversion from float to int"""
@@ -55,15 +41,15 @@ def generate_final_df(info, new_user_info, places_list):
     Returns:
     DataFrame: The final DataFrame containing combined user and area information.
     """
-    final_df = pd.DataFrame(columns=final_columns)
+    final_df = pd.DataFrame(columns=cfg.final_columns)
     
     for place in places_list:
         sido, gungu = map(str, place.split("+"))
         info_df = info[(info["SIDO"] == sido) & (info["GUNGU"] == gungu)].drop(["SIDO"], axis=1).reset_index(drop=True)
         user_data = new_user_info.drop(["sido_gungu_list"], axis=1).values.tolist()[0]
         user_data = [sido] + user_data
-        user_df = pd.DataFrame([user_data] * len(info_df), columns=user_columns)
-        df = pd.concat([user_df, info_df], axis=1)[features]
+        user_df = pd.DataFrame([user_data] * len(info_df), columns=cfg.user_columns)
+        df = pd.concat([user_df, info_df], axis=1)[cfg.features]
         df["VISIT_AREA_TYPE_CD"] = df["VISIT_AREA_TYPE_CD"].astype("string")
         final_df = pd.concat([final_df, df], axis=0)
         
@@ -99,7 +85,7 @@ def generate_user_info_df(final_df):
     Returns:
     DataFrame: DataFrame containing user information.
     """
-    return final_df[user_columns]
+    return final_df[cfg.user_columns]
 
 def main(info, new_user_info, model):
     """
@@ -134,8 +120,8 @@ def main(info, new_user_info, model):
 if __name__ == "__main__":
     PATH = r"C:\workspace\Ko-Swipe-ML\data\all"
     
-    info = pd.read_csv(os.path.join(PATH, '관광지 추천시스템 Testset_B- 여행지 정보.csv'))
-    recommend_model = joblib.load(os.path.join(PATH, 'base_reco.pkl'))
+    info = pd.read_csv(cfg.information_path)
+    recommend_model = joblib.load(cfg.model_path)
     test_data = pd.read_pickle("test_data.pkl")
     result = main(info, test_data, recommend_model)
     print(result)
