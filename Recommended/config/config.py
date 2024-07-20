@@ -16,10 +16,6 @@ class Config:
 
     features = final_columns
 
-    
-    
-
-
 cfg = Config()
 
 
