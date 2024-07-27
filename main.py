@@ -156,7 +156,7 @@ if __name__ == "__main__":
     info = pd.read_csv(cfg.information_path)
     recommend_model = joblib.load(cfg.model_path)
     test_data = pd.read_pickle("test_data_pre.pkl")
-    user_data = question()
-    result = main(info, user_data, recommend_model)
+    # test_data = question()
+    result = main(info, test_data, recommend_model)
     print(result)
     # [['부산', 22, '대중교통 등', '여', 20, 4, 7, 7, 3, 6, 4, 5, 7, 3, 7, 4, 0, ['부산시립미술관', '일광해수욕장', '벡스코 제2전시장', '청사포 다릿돌 전망대', '스카이라인루지 부산', '신세계 센텀시티몰', '뮤지엄원', '더베이101', '수영만요트경기장', '송정해수욕장']]]
