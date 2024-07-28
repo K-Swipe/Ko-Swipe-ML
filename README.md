@@ -16,4 +16,8 @@ pip install -r requirements.txt
 ```
 
 ## Inference
-...
+[Google drive](https://drive.google.com/drive/folders/10Fwg1YwsrgZXFkRVimuvcMV6EffZi6NA)  
+
+1. Download Model weigth & Place Information data
+2. Fix Config.py (information_path & model_path)
+3. main.py
