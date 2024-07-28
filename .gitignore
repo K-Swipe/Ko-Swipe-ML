@@ -168,3 +168,6 @@ data/
 # Logs
 catboost_info/
 archive/
+
+place_info.csv
+recommend.pkl
