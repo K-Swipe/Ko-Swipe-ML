@@ -4,7 +4,7 @@ class Config:
     base_path = Path(__file__).parents[2] 
     data_path = base_path / "data" / "preprocessing"
     information_path = data_path / "관광지 추천시스템 Testset_B- 여행지 정보.csv"
-    
+    places_path = data_path / "coordinates-final.csv"
     model_path = data_path / "catboost_model_B.pkl"
     
     # Inference
