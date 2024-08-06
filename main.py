@@ -4,6 +4,7 @@ import numpy as np
 import yaml
 
 from Recommended.config import cfg
+from sorted_place import nearest_neighbor_tsp
 
 with open("C:\workspace\Ko-Swipe-ML\Recommended\config\questions.yaml", encoding="utf-8") as f:
     label_file = yaml.load(f, Loader=yaml.FullLoader)
@@ -152,18 +153,35 @@ def question():
     return user_data
 
 
+def sorted_place(result, places):
+    result = result[0][-1]
+    matched_data = places[places["VISIT_AREA_NM"].isin(result)]
+    sorted_data = matched_data.sort_values(by="population", ascending=False)
+    return sorted_data
+
+
 if __name__ == "__main__":
     info = pd.read_csv(cfg.information_path)
     recommend_model = joblib.load(cfg.model_path)
+    places = pd.read_csv(cfg.places_path)
     test_data = pd.read_pickle("test_data_pre.pkl")
     # test_data = question()
     result = main(info, test_data, recommend_model)
-    print(result)
-    
+    result = sorted_place(result, places)
+
+    """TSP"""
+    start = (129.162576586723, 35.1594965345398)
+    points = list(zip(result["X_COORD"], result["Y_COORD"]))
+    path = nearest_neighbor_tsp(start, points)
+    path_indices = [points.index(p) for p in path if p in points]
+    sorted_df = result.iloc[path_indices].reset_index(drop=True)
+
+    print(sorted_df['VISIT_AREA_NM'].tolist())
+
     # [['부산', 22, '대중교통 등', '여', 20, 4, 7, 7, 3, 6, 4, 5, 7, 3, 7, 4, 0, ['부산시립미술관', '일광해수욕장', '벡스코 제2전시장', '청사포 다릿돌 전망대', '스카이라인루지 부산', '신세계 센텀시티몰', '뮤지엄원', '더베이101', '수영만요트경기장', '송정해수욕장']]]
-    
+
     # [['부산', 2, '자가용', '여', 30, 5, 3, 1, 2, 2, ['청사포 다릿돌 전망대', '해운대 모래축제', '동백섬', '청사포다릿돌전망대', '광복로 패션거리', '벡스코', '해운대 블루라인파크 미포 정거장', '부평깡통시장', '신세계 센텀시티몰', '해운대블루라인파크 청사포정거장']]]
-    
+
     # [['부산', 2, '자가용', '여', 30, 5, 3, 1, 2, 2, ['신세계 센텀시티몰', '부평깡통시장', '롯데백화점 광복점', '광복로 패션거리', '라이언 홀리데이 인 부산', '롯데마트 광복점', '벡스코', '용두산공원', '청사포 다릿돌 전망대', '해운대블루라인파크 청사포정거장']]]
-    
+
     # [['부산', 2, '자가용', '여', 30, 5, 3, 1, 2, 2, ['해운대블루라인파크 청사포정거장', '청사포 다릿돌 전망대', '해운대 블루라인파크 송정 정거장', '동백섬', '해운대 블루라인파크 미포 정거장', '해운대 해수욕장', '부평깡통시장', '영화의전당', '센텀시티 스파랜드', '더베이101']]]
