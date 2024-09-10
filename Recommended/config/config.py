@@ -6,6 +6,7 @@ class Config:
     information_path = data_path / "관광지 추천시스템 Testset_B- 여행지 정보.csv"
     places_path = data_path / "coordinates-final.csv"
     model_path = data_path / "catboost_model_B.pkl"
+    followup_places_path = data_path / "followup_places.csv"
     
     # Inference
     final_columns = ["VISIT_AREA_NM", "SIDO", "GUNGU", "VISIT_AREA_TYPE_CD", "TRAVEL_MISSION_PRIORITY", "MVMN_NM","GENDER",

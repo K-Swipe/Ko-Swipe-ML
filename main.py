@@ -167,16 +167,18 @@ if __name__ == "__main__":
     test_data = pd.read_pickle("test_data_pre.pkl")
     # test_data = question()
     result = main(info, test_data, recommend_model)
-    result = sorted_place(result, places)
+    print(result[0])
+    # result = sorted_place(result, places)
+    
 
-    """TSP"""
-    start = (129.162576586723, 35.1594965345398)
-    points = list(zip(result["X_COORD"], result["Y_COORD"]))
-    path = nearest_neighbor_tsp(start, points)
-    path_indices = [points.index(p) for p in path if p in points]
-    sorted_df = result.iloc[path_indices].reset_index(drop=True)
+    # """TSP"""
+    # start = (129.162576586723, 35.1594965345398)
+    # points = list(zip(result["X_COORD"], result["Y_COORD"]))
+    # path = nearest_neighbor_tsp(start, points)
+    # path_indices = [points.index(p) for p in path if p in points]
+    # sorted_df = result.iloc[path_indices].reset_index(drop=True)
 
-    print(sorted_df['VISIT_AREA_NM'].tolist())
+    # print(sorted_df['VISIT_AREA_NM'].tolist())
 
     # [['부산', 22, '대중교통 등', '여', 20, 4, 7, 7, 3, 6, 4, 5, 7, 3, 7, 4, 0, ['부산시립미술관', '일광해수욕장', '벡스코 제2전시장', '청사포 다릿돌 전망대', '스카이라인루지 부산', '신세계 센텀시티몰', '뮤지엄원', '더베이101', '수영만요트경기장', '송정해수욕장']]]
 
