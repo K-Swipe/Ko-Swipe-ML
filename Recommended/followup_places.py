@@ -25,5 +25,5 @@ def find_popular_followup_places(df, keyword="해운대", top_n=5):
 
 if __name__ == "__main__":
     df = pd.read_csv(cfg.followup_places_path)
-    popular_places_after_haeundae = find_popular_followup_places(df, keyword="전포카페거리", top_n=5)
+    popular_places_after_haeundae = find_popular_followup_places(df, keyword="해동용궁사", top_n=5)
     print(popular_places_after_haeundae)

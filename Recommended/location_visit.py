@@ -11,4 +11,4 @@ test = test[["TRAVEL_ID", "VISIT_AREA_NM"]]
 df = pd.concat([train, test]).reset_index(drop=True)
 
 if __name__ == "__main__":
-    df.to_csv(r"C:\workspace\Ko-Swipe-ML\data\preprocessing\followup_places_.csv", index=False)
+    df.to_csv(r"C:\workspace\Ko-Swipe-ML\data\preprocessing\followup_places.csv", index=False)

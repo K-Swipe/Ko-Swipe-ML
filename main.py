@@ -164,7 +164,7 @@ if __name__ == "__main__":
     info = pd.read_csv(cfg.information_path)
     recommend_model = joblib.load(cfg.model_path)
     places = pd.read_csv(cfg.places_path)
-    test_data = pd.read_pickle("test_data_pre.pkl")
+    test_data = pd.read_pickle("TestData.pkl")
     # test_data = question()
     result = main(info, test_data, recommend_model)
     print(result[0])

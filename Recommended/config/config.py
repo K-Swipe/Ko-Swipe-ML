@@ -9,12 +9,18 @@ class Config:
     followup_places_path = data_path / "followup_places.csv"
     
     # Inference
+    # final_columns = ["VISIT_AREA_NM", "SIDO", "GUNGU", "VISIT_AREA_TYPE_CD", "TRAVEL_MISSION_PRIORITY", "MVMN_NM","GENDER",
+    #                  "AGE_GRP", "INCOME","TRAVEL_STYL", "TRAVEL_MOTIVE_1", "TRAVEL_NUM", "TRAVEL_COMPANIONS_NUM","RESIDENCE_TIME_MIN_mean", "RCMDTN_INTENTION_mean", "REVISIT_YN_mean", "TRAVEL_COMPANIONS_NUM_mean", "REVISIT_INTENTION_mean"]
+
+    # user_columns = ["SIDO", "TRAVEL_MISSION_PRIORITY", "MVMN_NM", "GENDER", "AGE_GRP", "INCOME", "TRAVEL_STYL",
+    #                 "TRAVEL_MOTIVE_1", "TRAVEL_NUM", "TRAVEL_COMPANIONS_NUM"]
+    
     final_columns = ["VISIT_AREA_NM", "SIDO", "GUNGU", "VISIT_AREA_TYPE_CD", "TRAVEL_MISSION_PRIORITY", "MVMN_NM","GENDER",
-                     "AGE_GRP", "INCOME","TRAVEL_STYL", "TRAVEL_MOTIVE_1", "TRAVEL_NUM", "TRAVEL_COMPANIONS_NUM","RESIDENCE_TIME_MIN_mean", "RCMDTN_INTENTION_mean", "REVISIT_YN_mean", "TRAVEL_COMPANIONS_NUM_mean", "REVISIT_INTENTION_mean"]
+                     "AGE_GRP","TRAVEL_STYL", "TRAVEL_MOTIVE_1", "TRAVEL_NUM", "TRAVEL_COMPANIONS_NUM","RESIDENCE_TIME_MIN_mean", "RCMDTN_INTENTION_mean", "REVISIT_YN_mean", "TRAVEL_COMPANIONS_NUM_mean", "REVISIT_INTENTION_mean"]
 
-    user_columns = ["SIDO", "TRAVEL_MISSION_PRIORITY", "MVMN_NM", "GENDER", "AGE_GRP", "INCOME", "TRAVEL_STYL",
+    user_columns = ["SIDO", "TRAVEL_MISSION_PRIORITY", "MVMN_NM", "GENDER", "AGE_GRP", "TRAVEL_STYL",
                     "TRAVEL_MOTIVE_1", "TRAVEL_NUM", "TRAVEL_COMPANIONS_NUM"]
-
+    
     features = final_columns
 
 cfg = Config()
